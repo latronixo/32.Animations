@@ -12,20 +12,26 @@ struct ContentView: View {
     
     var body: some View {
         Button("Tap me") {
-            print("кнопку тапнули")
-            animationAmount += 1
+            //animationAmount += 1
+        }
+        .onAppear{
+        animationAmount = 2
         }
         .padding(50)
         .background(.red)
         .foregroundStyle(.white)
         .clipShape(.circle)
-        .scaleEffect(animationAmount)
-        .blur(radius: (animationAmount - 1) * 3)
-        .animation(
-            .easeInOut(duration: 2)
-            .delay(1)
-            .repeatCount(5, autoreverses: false),
-           value: animationAmount)
+        .overlay(
+            Circle()
+            .stroke(.blue)
+            .scaleEffect(animationAmount)
+            .opacity(2 - animationAmount)
+            .animation(
+                .easeInOut(duration: 1)
+                .repeatForever(autoreverses: false),
+               value: animationAmount
+            )
+        )
     }
 }
 
